@@ -5,38 +5,22 @@
 
 import os
 import utils
-from os.path import expanduser
 
 def extract(level_name=None, save_file=None):
     # Initializing variables
     filedata = ""
-    home_dir = expanduser("~") # Gets home dir
     script_data = None
     vvvvvv_dir = None
 
     # Get current opsys
-    opsys = utils.getos()
-        
-    # set environment-specific variables
-    if opsys == 0:
-        vvvvvv_dir = home_dir + "/.vvvvvv/"
-
-    elif opsys == 1:
-        vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
-
-    elif opsys == 2:
-        vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
-
-    else:
-        print "Error: unsupported platform"
-        quit()
+    vvvvvv_dir = utils.get_vvvvvv_dir()
 
     # Checks whether level_name specified beforehand (for quiet execution)
     if not level_name:
         # request filename from user
         while True:
             level_name = None
-            level_name = raw_input("ID of level (do not include extension): ")
+            level_name = utils.get_level_name()
             if not level_name:
                 print "You must enter a level name"
                 continue

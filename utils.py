@@ -2,8 +2,11 @@
 ##
 ## See the file license.txt for copying permission.
 
+import os
 import sys
 from HTMLParser import HTMLParser
+from os.path import expanduser
+from time import strftime
 
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -19,18 +22,23 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
-def getos():
-    if sys.platform.startswith("win"):
-        return 1
+def get_vvvvvv_dir():
+    home_dir = expanduser("~") # Gets home dir
+    
+    if sys.platform.startswith("linux"):
+        vvvvvv_dir = home_dir + "/.vvvvvv/"
 
-    elif sys.platform.startswith("linux"):
-        return 0
+    elif sys.platform.startswith("win"):
+        vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
 
     elif sys.platform.startswith("darwin"):
-        return 2
+        vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
 
     else:
-        return -1
+        print "Error: unsupported platform"
+        quit()
+
+    return vvvvvv_dir
 
 def get_raw_data(vvvvvv_dir, level_name):
     # get level data
@@ -51,6 +59,16 @@ def get_script_data(raw_data):
     if not script_data:
         return False
 
+def get_script_line(raw_data, script_data):
+    for i in range(len(raw_data)):
+        if "<script>" in raw_data[i]:
+            
+            return True
+        else:
+            continue
+
+    return False
+
 def cleanup_data(script_data):
     # remove <script></script> tags
     tagless_data = strip_tags(script_data)
@@ -63,8 +81,20 @@ def cleanup_data(script_data):
 
     return final_data
 
-def level_backup(level_name=None):
-    if not level_name:
-        return False
-    else:
-        pass
+def get_level_name():
+    level_name = raw_input("ID of level (do not include extension): ")
+    return level_name
+
+def level_backup(level_name):
+    # check if backup dir exists
+    leveldir = get_vvvvvv_dir()
+    backupdir = get_vvvvvv_dir() + "vvvvvv_level_backups/"
+    if not os.path.isdir(backupdir):
+        # make the dir
+        os.mkdir(backupdir)
+
+    curr_time = strftime("%Y-%m-%d %H%M")
+    shutil.copyfile(level_dir + level_name + ".vvvvvv",
+                    backupdir + level_name + curr_time + ".vvvvvv")
+
+    return backupdir + level_name + curr_time + ".vvvvvv"
