@@ -3,7 +3,6 @@
 ##
 ## See the file license.txt for copying permission.
 
-# TODO: write code to import .v6script files into .vvvvvv level files
 import os
 import shutil
 import utils
