@@ -53,10 +53,11 @@ def get_raw_data(vvvvvv_dir, level_name):
 
 def write_level_data(vvvvvv_dir, level_name, level_data):
     filename = level_name + ".vvvvvv"
+    out_data = ''.join(level_data)
     level_path = vvvvvv_dir + filename
     try:
-        with open(filename, "w") as outfile:
-            outfile.write(level_data)
+        with open(level_path, "w") as outfile:
+            outfile.write(out_data)
     except IOError:
         return False
 
@@ -111,7 +112,7 @@ def script_to_raw(script_data):
 
     joined_raw_data = '|'.join(raw_data)
 
-    final_raw_data = "<script>" + joined_raw_data + "</script>"
+    final_raw_data = "<script>" + joined_raw_data + "</script>\n"
 
     return final_raw_data
 
