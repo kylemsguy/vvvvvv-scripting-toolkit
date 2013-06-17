@@ -4,6 +4,7 @@
 
 import os
 import sys
+import shutil
 from HTMLParser import HTMLParser
 from os.path import expanduser
 from time import strftime
@@ -50,6 +51,26 @@ def get_raw_data(vvvvvv_dir, level_name):
     except IOError:
         return False
 
+def write_level_data(vvvvvv_dir, level_name, level_data):
+    filename = level_name + ".vvvvvv"
+    level_path = vvvvvv_dir + filename
+    try:
+        with open(filename, "w") as outfile:
+            outfile.write(level_data)
+    except IOError:
+        return False
+
+    else:
+        return True
+
+def get_script_filedata(script_path):
+    try:
+        with open(script_path) as infile:
+            return infile.readlines()
+
+    except IOError:
+        return False
+
 def get_script_data(raw_data):
     # get script data
     for line in raw_data:
@@ -59,10 +80,10 @@ def get_script_data(raw_data):
     if not script_data:
         return False
 
-def get_script_line(raw_data, script_data):
+def import_script_data(raw_data, script_data):
     for i in range(len(raw_data)):
         if "<script>" in raw_data[i]:
-            
+            raw_data[i] = script_data
             return True
         else:
             continue
@@ -81,6 +102,19 @@ def cleanup_data(script_data):
 
     return final_data
 
+def script_to_raw(script_data):
+
+    raw_data = []
+
+    for line in script_data:
+        raw_data.append(line.rstrip("\n"))
+
+    joined_raw_data = '|'.join(raw_data)
+
+    final_raw_data = "<script>" + joined_raw_data + "</script>"
+
+    return final_raw_data
+
 def get_level_name():
     level_name = raw_input("ID of level (do not include extension): ")
     return level_name
@@ -94,7 +128,7 @@ def level_backup(level_name):
         os.mkdir(backupdir)
 
     curr_time = strftime("%Y-%m-%d %H%M")
-    shutil.copyfile(level_dir + level_name + ".vvvvvv",
+    shutil.copyfile(leveldir + level_name + ".vvvvvv",
                     backupdir + level_name + curr_time + ".vvvvvv")
 
     return backupdir + level_name + curr_time + ".vvvvvv"
