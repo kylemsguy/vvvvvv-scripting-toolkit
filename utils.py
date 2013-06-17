@@ -41,6 +41,11 @@ def get_vvvvvv_dir():
         print "Error: unsupported platform"
         quit()
 
+    if not os.path.isdir(vvvvvv_dir):
+        print "VVVVVV directory not found. Please run VVVVVV at least once",
+        print "prior to using this utility."
+        exit()
+
     return vvvvvv_dir
 
 def get_raw_data(vvvvvv_dir, level_name):
