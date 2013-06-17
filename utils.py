@@ -31,6 +31,8 @@ def get_vvvvvv_dir():
 
     elif sys.platform.startswith("win"):
         vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
+        if not os.path.isdir(vvvvvv_dir):
+            vvvvvv_dir = home_dir + "/My Documents/VVVVVV"
 
     elif sys.platform.startswith("darwin"):
         vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
