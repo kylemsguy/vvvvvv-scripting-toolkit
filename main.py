@@ -6,39 +6,39 @@
 import os
 import sys
 
-def display_help():
-    print "Help shall be implemented soon"
-    exit()
+def interactive_menu():
+    while True:
+        print "Please select which mode you wish to use: "
+        print "1. Extract script from level file"
+        print "2. Import script into level file"
+        print "q. Exit"
+        answer = raw_input("Selection: ")
+        if answer == '1':
+            import extract
+            quit()
+        elif answer == '2':
+            import import_script
+            quit()
+        elif answer == 'q':
+            print "Quitting..."
+            quit()
+        else:
+            print "Invalid selection"
+            continue
 
 # Initialize variables
+mode = None
 vvvvvv_dir = None
 level_name = None
 script_file = None
 
 # Check for command line parameters
 args = sys.argv()
-if "--help" in args:
-    display_help()
 
-else:
-    skip = 0
-    for i in range(len(args)):
-        if skip:
-            skip -= 1
-            continue
-        
-        if args[i] == "-d":
-            vvvvvv_dir = args[i + 1]
-            skip = 1
+params = utils.command_switches(args)
 
-        elif args[i] == "-l":
-            level_name = args[i + 1]
-            skip = 1
+if not params:
+    quit()
 
-        elif args[i] == "-s":
-            script_file = args[i + 1].strip('"')
-            skip = 1
-
-        else:
-            print "invalid command line argument"
-            display_help()
+elif params == 1:
+    interactive_menu()

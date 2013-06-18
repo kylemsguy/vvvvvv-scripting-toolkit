@@ -9,6 +9,7 @@ from HTMLParser import HTMLParser
 from os.path import expanduser
 from time import strftime
 
+# from http://stackoverflow.com/a/925630
 class MLStripper(HTMLParser):
     def __init__(self):
         self.reset()
@@ -22,6 +23,71 @@ def strip_tags(html):
     s = MLStripper()
     s.feed(html)
     return s.get_data()
+
+# end from http://stackoverflow.com/a/925630
+
+def display_help():
+    print "Help shall be implemented soon"
+    exit()
+    
+def command_switches(argv):
+    mode = None
+    vvvvvv_dir = None
+    level_name = None
+    script_file = None
+    
+    if "--help" in args:
+        display_help()
+        return False
+    
+    elif len(argv) < 2:
+        return 1
+
+    if args[1] == "export":
+        mode = 0
+    elif args[1] == "import":
+        mode = 1
+    else:
+        invalid_cmdline()
+        return False
+
+    # continue after initial checks
+    skip = 0
+    for i in range(len(args)):
+        if skip:
+            skip -= 1
+            continue
+        
+        if args[i] == "-d":
+            if not vvvvvv_dir:
+                vvvvvv_dir = args[i + 1]
+                skip = 1
+            else:
+                invalid_cmdline()
+                return False
+
+        elif args[i] == "-l":
+            if not level_name:
+                level_name = args[i + 1]
+                skip = 1
+            else:
+                invalid_cmdline()
+                return False
+
+        elif args[i] == "-s":
+            if not script_file:
+                script_file = args[i + 1].strip('"')
+                skip = 1
+            else:
+                invalid_cmdline()
+                return False
+
+        else:
+            invalid_cmdline()
+
+def invalid_cmdline():
+    print "invalid command line argument(s)"
+    display_help()
 
 def get_vvvvvv_dir():
     home_dir = expanduser("~") # Gets home dir
