@@ -53,7 +53,7 @@ The same rules apply to the scripts that you import using this tool as with the 
 </tr>
 <tr>
 <td>&amplt;</td>
-<td><</td>
+<td>&lt;</td>
 </tr>
 <tr>
 <td>&ampgt;</td>
