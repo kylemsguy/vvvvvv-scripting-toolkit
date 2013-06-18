@@ -65,10 +65,10 @@ The same rules apply to the scripts that you import using this tool as with the 
 </tr>
 <tr>
 <td>}</td>
-<td>&Aacute</td>
+<td>&Aacute;</td>
 </tr>
 <tr>
 <td>~</td>
-<td>&aring</td>
+<td>&aring;</td>
 </tr>
 </table>
