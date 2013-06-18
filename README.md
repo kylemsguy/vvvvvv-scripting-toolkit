@@ -45,7 +45,7 @@ The same rules apply to the scripts that you import using this tool as with the 
 </tr>
 <tr>
 <td>&ampamp;</td>
-<td>&amp</td>
+<td>&amp;/td>
 </tr>
 <tr>
 <td>&ampapos;</td>
