@@ -5,6 +5,8 @@
 
 import os
 import sys
+import extract
+import import_script
 
 def interactive_menu():
     while True:
@@ -14,10 +16,10 @@ def interactive_menu():
         print "q. Exit"
         answer = raw_input("Selection: ")
         if answer == '1':
-            import extract
+            extract.extract()
             quit()
         elif answer == '2':
-            import import_script
+            import_script.import_script()
             quit()
         elif answer == 'q':
             print "Quitting..."
