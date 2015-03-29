@@ -7,6 +7,7 @@ import os
 import sys
 import extract
 import import_script
+import utils
 
 def interactive_menu():
     while True:
@@ -35,7 +36,7 @@ level_name = None
 script_file = None
 
 # Check for command line parameters
-args = sys.argv()
+args = sys.argv
 
 params = utils.command_switches(args)
 

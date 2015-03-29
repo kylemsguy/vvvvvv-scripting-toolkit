@@ -30,18 +30,13 @@ def import_script(script_name=None, level_name=None):
         print
 
     # Checks whether level_name specified beforehand (for quiet execution)
-    if not level_name:
-        while True:
-            print "Please enter the filename of the level"
-            print "(do not include .vvvvvv or else bad things will happen)"
-            level_name = utils.get_level_name()
+    while not level_name: 
+        print "Please enter the filename of the level"
+        print "(do not include .vvvvvv or else bad things will happen)"
+        level_name = utils.get_level_name()
 
-            if not level_name:
-                print "You must enter a level name"
-                continue
-
-            else:
-                break
+        if not level_name:
+            print "You must enter a level name"
 
     # backup level file
     print "Backing up level file..."

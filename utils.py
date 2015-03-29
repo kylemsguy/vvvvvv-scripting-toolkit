@@ -36,16 +36,16 @@ def command_switches(argv):
     level_name = None
     script_file = None
     
-    if "--help" in args:
+    if "--help" in argv:
         display_help()
         return False
     
     elif len(argv) < 2:
         return 1
 
-    if args[1] == "export":
+    if argv[1] == "export":
         mode = 0
-    elif args[1] == "import":
+    elif argv[1] == "import":
         mode = 1
     else:
         invalid_cmdline()
@@ -53,30 +53,30 @@ def command_switches(argv):
 
     # continue after initial checks
     skip = 0
-    for i in range(len(args)):
+    for i in range(len(argv)):
         if skip:
             skip -= 1
             continue
         
-        if args[i] == "-d":
+        if argv[i] == "-d":
             if not vvvvvv_dir:
-                vvvvvv_dir = args[i + 1]
+                vvvvvv_dir = argv[i + 1]
                 skip = 1
             else:
                 invalid_cmdline()
                 return False
 
-        elif args[i] == "-l":
+        elif argv[i] == "-l":
             if not level_name:
-                level_name = args[i + 1]
+                level_name = argv[i + 1]
                 skip = 1
             else:
                 invalid_cmdline()
                 return False
 
-        elif args[i] == "-s":
+        elif argv[i] == "-s":
             if not script_file:
-                script_file = args[i + 1].strip('"')
+                script_file = argv[i + 1].strip('"')
                 skip = 1
             else:
                 invalid_cmdline()
@@ -91,9 +91,13 @@ def invalid_cmdline():
 
 def get_vvvvvv_dir():
     home_dir = expanduser("~") # Gets home dir
+    vvvvvv_dir = ""
     
     if sys.platform.startswith("linux"):
         vvvvvv_dir = home_dir + "/.vvvvvv/"
+        # for steam version of VVVVVV on Linux
+        if not os.path.isdir(vvvvvv_dir):
+            vvvvvv_dir = home_dir + "/.local/share/VVVVVV/levels/"
 
     elif sys.platform.startswith("win"):
         vvvvvv_dir = home_dir + "/Documents/VVVVVV/"
